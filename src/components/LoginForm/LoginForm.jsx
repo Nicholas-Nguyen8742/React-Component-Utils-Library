@@ -2,6 +2,7 @@ import './LoginForm.scss';
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { handleLogin } from '../../utils/axios';
+import { handleChange } from '../../utils/formControlled';
 import { emailValidation, isEmptyPassword } from '../../utils/loginValidation';
 import Input from '../FormInput/FormInput';
 
@@ -15,12 +16,6 @@ export default class LoginForm extends Component {
         user: ''
     }
 
-    // Handles Controlled Change
-    handleChange = (event) => {
-        this.setState({
-            [event.target.name]: event.target.value,
-        });
-    };
 
     render() {
         return (
@@ -28,8 +23,8 @@ export default class LoginForm extends Component {
             <section className='loginForm-wrapper'>
                 <form className="loginForm__form" onSubmit={handleLogin}>
                     <h1 className="loginForm__title">Login</h1>
-                    <Input type="text" name="email" label="Email" value={this.state.email} onChange={this.handleChange} valid={emailValidation} />
-                    <Input type="password" name="password" label="Password" value={this.state.password} onChange={this.handleChange} valid={isEmptyPassword} />
+                    <Input type="text" name="email" label="Email" value={this.state.email} onChange={handleChange} valid={emailValidation} />
+                    <Input type="password" name="password" label="Password" value={this.state.password} onChange={handleChange} valid={isEmptyPassword} />
                     <button className='loginForm__btn' type="submit">Login</button>
                     {this.state.success && <Redirect to={`/dashboard/${this.state.user}`} />}
                     {this.state.error && <p>{this.state.error}</p>}
