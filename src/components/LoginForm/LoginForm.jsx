@@ -1,8 +1,8 @@
 import './LoginForm.scss';
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import axios from 'axios';
-import { emailValidation, isEmptyPassword } from '../../utils/formValidation';
+import { handleLogin } from '../../utils/axios';
+import { emailValidation, isEmptyPassword } from '../../utils/loginValidation';
 import Input from '../FormInput/FormInput';
 
 
@@ -22,31 +22,11 @@ export default class LoginForm extends Component {
         });
     };
 
-    // Handle Login Axios Request
-    handleSubmit = (event) => {
-        event.preventDefault();
-        const { email, password } = this.state;
-        axios
-            .post('http://localhost:8080/auth/login', {
-                email,
-                password
-            })
-            .then((response) => {
-                console.log(response);
-                sessionStorage.setItem("token", response.data.token);
-                this.setState({ success: true, user: response.data.user.id });
-                event.target.reset();
-            })
-            .catch((error) => {
-                this.setState({ error: error.response.data });
-            });
-    };
-
     render() {
         return (
             <div className='loginForm'>
             <section className='loginForm-wrapper'>
-                <form className="loginForm__form" onSubmit={this.handleSubmit}>
+                <form className="loginForm__form" onSubmit={handleLogin}>
                     <h1 className="loginForm__title">Login</h1>
                     <Input type="text" name="email" label="Email" value={this.state.email} onChange={this.handleChange} valid={emailValidation} />
                     <Input type="password" name="password" label="Password" value={this.state.password} onChange={this.handleChange} valid={isEmptyPassword} />
