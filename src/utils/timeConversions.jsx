@@ -1,5 +1,5 @@
 // Epoch timestamp to which day of the week (Monday)
-export const epochConversion = (timestamp) => {
+export function epochConversion(timestamp)  {
     const time = new Date(timestamp*1000);
     const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
     const day = days[time.getDay()];
@@ -7,7 +7,7 @@ export const epochConversion = (timestamp) => {
 }
 
 // Timestamp Converter to Date (Ex: Sat Nov 6 2021)
-export const timeConvert = (date) => {
+export function timeConvert(date)  {
     let dateFull = new Date(Number(date));
     let months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sept','Oct','Nov','Dec'];
     let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -22,7 +22,7 @@ export const timeConvert = (date) => {
 }
 
 //Time Conversion for New Comments (Ex: 1 minute ago...)
-export const timeSince = (date) => {
+export function timeSince(date)  {
     var seconds = Math.floor(((new Date() - date) / 1000) + 2); // +2 is to compesate for how fast requests are made for new comments(showed -1second ago)
     var intervalType;
 
